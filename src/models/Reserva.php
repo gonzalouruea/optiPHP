@@ -15,7 +15,7 @@ class Reserva
                        tr.Descripción as tipo_reserva_nombre
                 FROM transfer_reservas r
                 LEFT JOIN transfer_vehiculo v ON r.id_vehiculo = v.id_vehiculo
-                LEFT JOIN transfer_hotel h ON r.id_hotel = h.id_hotel
+                LEFT JOIN tranfer_hotel h ON r.id_hotel = h.id_hotel
                 LEFT JOIN transfer_tipo_reserva tr ON r.id_tipo_reserva = tr.id_tipo_reserva
                 ORDER BY r.fecha_reserva DESC";
     return $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -30,7 +30,7 @@ class Reserva
                        tr.Descripción as tipo_reserva_nombre
                 FROM transfer_reservas r
                 LEFT JOIN transfer_vehiculo v ON r.id_vehiculo = v.id_vehiculo
-                LEFT JOIN transfer_hotel h ON r.id_hotel = h.id_hotel
+                LEFT JOIN tranfer_hotel h ON r.id_hotel = h.id_hotel
                 LEFT JOIN transfer_tipo_reserva tr ON r.id_tipo_reserva = tr.id_tipo_reserva
                 WHERE r.email_cliente = ?
                 ORDER BY r.fecha_reserva DESC");
@@ -175,7 +175,7 @@ class Reserva
                 h.usuario as hotel
                 FROM transfer_reservas r
                 JOIN transfer_vehiculo v ON r.id_vehiculo = v.id_vehiculo
-                LEFT JOIN transfer_hotel h ON r.id_hotel = h.id_hotel
+                LEFT JOIN tranfer_hotel h ON r.id_hotel = h.id_hotel
                 WHERE r.id_reserva = :id $condicion";
     $stmt = $db->prepare($sql);
     $params = [':id' => $id];
@@ -214,7 +214,7 @@ class Reserva
                        v.Descripción as vehiculo_descripcion,
                        tr.Descripción as tipo_reserva_descripcion
                 FROM transfer_reservas r
-                LEFT JOIN transfer_hotel h ON r.id_hotel = h.id_hotel
+                LEFT JOIN tranfer_hotel h ON r.id_hotel = h.id_hotel
                 LEFT JOIN transfer_vehiculo v ON r.id_vehiculo = v.id_vehiculo
                 LEFT JOIN transfer_tipo_reserva tr ON r.id_tipo_reserva = tr.id_tipo_reserva
                 WHERE (fecha_entrada BETWEEN :inicio AND :fin)

@@ -10,7 +10,7 @@ class Hotel
   {
     $db = Database::getConnection();
     $sql = "SELECT h.*, z.descripcion as zona_nombre
-                FROM transfer_hotel h
+                FROM tranfer_hotel h
                 LEFT JOIN transfer_zona z ON h.id_zona = z.id_zona
                 ORDER BY h.id_hotel";
     return $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -23,7 +23,7 @@ class Hotel
       return "Faltan datos para crear hotel";
     }
     $db = Database::getConnection();
-    $stmt = $db->prepare("INSERT INTO transfer_hotel (id_zona, Comision, usuario, password)
+    $stmt = $db->prepare("INSERT INTO tranfer_hotel (id_zona, Comision, usuario, password)
                               VALUES (?, ?, ?, ?)");
     try {
       $passwordHash = password_hash($data['password'], PASSWORD_DEFAULT);
@@ -40,7 +40,7 @@ class Hotel
       return "Faltan datos para actualizar hotel";
     }
     $db = Database::getConnection();
-    $sql = "UPDATE transfer_hotel
+    $sql = "UPDATE tranfer_hotel
                 SET id_zona = ?,
                     Comision = ?,
                     usuario = ?";
@@ -65,7 +65,7 @@ class Hotel
   {
     $db = Database::getConnection();
     try {
-      $stmt = $db->prepare("DELETE FROM transfer_hotel WHERE id_hotel = ?");
+      $stmt = $db->prepare("DELETE FROM tranfer_hotel WHERE id_hotel = ?");
       $stmt->execute([$id_hotel]);
       return true;
     } catch (\PDOException $e) {
@@ -76,6 +76,6 @@ class Hotel
   public static function countAll()
   {
     $db = Database::getConnection();
-    return $db->query("SELECT COUNT(*) FROM transfer_hotel")->fetchColumn();
+    return $db->query("SELECT COUNT(*) FROM tranfer_hotel")->fetchColumn();
   }
 }
