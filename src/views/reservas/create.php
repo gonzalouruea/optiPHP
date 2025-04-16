@@ -4,21 +4,21 @@
   <h2>Nueva Reserva</h2>
 
   <?php if (!empty($error)): ?>
-      <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
   <?php endif; ?>
 
   <form action="index.php?controller=Reserva&action=store" method="POST">
     <?php if (!empty($_SESSION['admin']) && !empty($usuarios)): ?>
-        <!-- Seleccionar usuario -->
-        <div class="mb-3">
-          <label class="form-label">Usuario</label>
-          <select class="form-select" name="id_viajero">
-            <option value="">Seleccionar usuario...</option>
-            <?php foreach ($usuarios as $u): ?>
-                <option value="<?= $u['id_viajero'] ?>"><?= htmlspecialchars($u['email']) ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
+          <!-- Seleccionar usuario -->
+          <div class="mb-3">
+            <label class="form-label">Usuario</label>
+            <select class="form-select" name="id_viajero">
+              <option value="">Seleccionar usuario...</option>
+              <?php foreach ($usuarios as $u): ?>
+                    <option value="<?= $u['id_viajero'] ?>"><?= htmlspecialchars($u['email']) ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
     <?php endif; ?>
 
     <!-- Tipo Trayecto -->
@@ -41,7 +41,7 @@
       <label class="form-label">Vehículo</label>
       <select name="id_vehiculo" class="form-select" required>
         <?php foreach ($vehiculos as $veh): ?>
-            <option value="<?= $veh['id_vehiculo'] ?>"><?= htmlspecialchars($veh['Descripción']) ?></option>
+              <option value="<?= $veh['id_vehiculo'] ?>"><?= htmlspecialchars($veh['Descripción']) ?></option>
         <?php endforeach; ?>
       </select>
     </div>
@@ -50,9 +50,9 @@
       <label class="form-label">Hotel (destino/recogida)</label>
       <select name="id_hotel" class="form-select" required>
         <?php foreach ($hoteles as $h): ?>
-            <option value="<?= $h['id_hotel'] ?>">
-              <?= htmlspecialchars($h['usuario'] ?? "Hotel #{$h['id_hotel']}") ?>
-            </option>
+              <option value="<?= $h['id_hotel'] ?>">
+                <?= htmlspecialchars($h['Usuario'] ?? "Hotel #{$h['id_hotel']}") ?>
+              </option>
         <?php endforeach; ?>
       </select>
     </div>

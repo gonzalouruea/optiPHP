@@ -81,6 +81,14 @@ class Reserva
                  :fsalida, :hsalida, :hrecogida,
                  :viajeros, :vehiculo, :admin)";
 
+    // Si el usuario no rellena fecha_vuelo_salida, le asignamos null
+    if (empty($data['fecha_vuelo_salida'])) {
+      $data['fecha_vuelo_salida'] = null;
+    }
+    if (empty($data['hora_vuelo_salida'])) {
+      $data['hora_vuelo_salida'] = null;
+    }
+
     $stmt = $db->prepare($sql);
     $stmt->execute([
       ':loc' => $localizador,
@@ -90,8 +98,8 @@ class Reserva
       ':fentrada' => $data['fecha_entrada'],
       ':hentrada' => $data['hora_entrada'],
       ':vuelo_entrada' => $data['numero_vuelo_entrada'] ?? null,
-      ':fsalida' => $data['fecha_vuelo_salida'],
-      ':hsalida' => $data['hora_vuelo_salida'],
+      ':fsalida' => $data['fecha_vuelo_salida'] ?? null,
+      ':hsalida' => $data['hora_vuelo_salida'] ?? null,
       ':hrecogida' => $data['hora_recogida'],
       ':viajeros' => $data['num_viajeros'],
       ':vehiculo' => $data['id_vehiculo'],
