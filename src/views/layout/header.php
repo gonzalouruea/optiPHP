@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Isla-Transfers</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+
 </head>
 
 <body>
@@ -23,71 +25,71 @@
           </li>
 
           <?php if (empty($_SESSION['email'])): ?>
-                <!-- NO logueado: Login / Register -->
-                <li class="nav-item">
-                  <a class="nav-link" href="index.php?controller=Auth&action=showLogin">Login</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="index.php?controller=Auth&action=showRegister">Registro</a>
-                </li>
+                      <!-- NO logueado: Login / Register -->
+                      <li class="nav-item">
+                        <a class="nav-link" href="index.php?controller=Auth&action=showLogin">Login</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="index.php?controller=Auth&action=showRegister">Registro</a>
+                      </li>
 
           <?php else: ?>
-                <!-- Logueado: mostrar según rol -->
-                <?php
-                // Rol en la sesión, e.g. $_SESSION['rol'] = 'admin' / 'usuario' / 'corporativo'
-                $rol = $_SESSION['rol'] ?? 'usuario';
-                if ($rol === 'admin'):
-                  ?>
-                      <!-- Menú Admin -->
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Panel Admin</a>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="index.php?controller=Admin&action=panel">Dashboard</a></li>
-                          <li><hr></li>
-                          <li><a class="dropdown-item" href="index.php?controller=Reserva&action=create">Nueva Reserva</a></li>
-                          <li><a class="dropdown-item" href="index.php?controller=Reserva&action=index">Ver Reservas</a></li>
-                          <li><a class="dropdown-item" href="index.php?controller=Reserva&action=calendario">Calendario</a></li>
-                          <li><hr></li>
-                          <li><a class="dropdown-item" href="index.php?controller=Admin&action=gestionarVehiculos">Vehículos</a></li>
-                          <li><a class="dropdown-item" href="index.php?controller=Admin&action=gestionarHoteles">Hoteles</a></li>
-                          <li><a class="dropdown-item" href="index.php?controller=Admin&action=gestionarZonas">Zonas</a></li>
-                          <li><a class="dropdown-item" href="index.php?controller=Admin&action=gestionarTipos">Tipos de Reserva</a></li>
-                        </ul>
-                      </li>
+                      <!-- Logueado: mostrar según rol -->
+                      <?php
+                      // Rol en la sesión, e.g. $_SESSION['rol'] = 'admin' / 'usuario' / 'corporativo'
+                      $rol = $_SESSION['rol'] ?? 'usuario';
+                      if ($rol === 'admin'):
+                        ?>
+                                  <!-- Menú Admin -->
+                                  <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Panel Admin</a>
+                                    <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" href="index.php?controller=Admin&action=panel">Dashboard</a></li>
+                                      <li><hr></li>
+                                      <li><a class="dropdown-item" href="index.php?controller=Reserva&action=create">Nueva Reserva</a></li>
+                                      <li><a class="dropdown-item" href="index.php?controller=Reserva&action=index">Ver Reservas</a></li>
+                                      <li><a class="dropdown-item" href="index.php?controller=Reserva&action=calendario">Calendario</a></li>
+                                      <li><hr></li>
+                                      <li><a class="dropdown-item" href="index.php?controller=Admin&action=gestionarVehiculos">Vehículos</a></li>
+                                      <li><a class="dropdown-item" href="index.php?controller=Admin&action=gestionarHoteles">Hoteles</a></li>
+                                      <li><a class="dropdown-item" href="index.php?controller=Admin&action=gestionarZonas">Zonas</a></li>
+                                      <li><a class="dropdown-item" href="index.php?controller=Admin&action=gestionarTipos">Tipos de Reserva</a></li>
+                                    </ul>
+                                  </li>
 
-                <?php elseif ($rol === 'corporativo'): ?>
-                      <!-- Menú Corporativo (usa menús parecidos a usuario, u otro condicional) -->
-                      <li class="nav-item">
-                        <a class="nav-link" href="index.php?controller=Reserva&action=index">Mis Reservas (Corp)</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="index.php?controller=Reserva&action=create">Nueva Reserva (Corp)</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="index.php?controller=Auth&action=showCambiarDatos">Perfil</a>
-                      </li>
+                      <?php elseif ($rol === 'corporativo'): ?>
+                                  <!-- Menú Corporativo (usa menús parecidos a usuario, u otro condicional) -->
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="index.php?controller=Reserva&action=index">Mis Reservas (Corp)</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="index.php?controller=Reserva&action=create">Nueva Reserva (Corp)</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="index.php?controller=Auth&action=showCambiarDatos">Perfil</a>
+                                  </li>
 
-                <?php else: ?>
-                      <!-- rol === 'usuario' particular -->
-                      <li class="nav-item">
-                        <a class="nav-link" href="index.php?controller=Reserva&action=index">Mis Reservas</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="index.php?controller=Reserva&action=create">Nueva Reserva</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="index.php?controller=Auth&action=showCambiarDatos">Perfil</a>
-                      </li>
-                <?php endif; ?>
+                      <?php else: ?>
+                                  <!-- rol === 'usuario' particular -->
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="index.php?controller=Reserva&action=index">Mis Reservas</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="index.php?controller=Reserva&action=create">Nueva Reserva</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="index.php?controller=Auth&action=showCambiarDatos">Perfil</a>
+                                  </li>
+                      <?php endif; ?>
           <?php endif; ?>
         </ul>
 
         <!-- Si está logueado, mostramos el email y botón logout -->
         <?php if (!empty($_SESSION['email'])): ?>
-              <span class="navbar-text me-3">
-                Bienvenido, <?= htmlspecialchars($_SESSION['email']) ?>!
-              </span>
-              <a class="btn btn-outline-danger" href="index.php?controller=Auth&action=logout">Cerrar sesión</a>
+                    <span class="navbar-text me-3">
+                      Bienvenido, <?= htmlspecialchars($_SESSION['email']) ?>!
+                    </span>
+                    <a class="btn btn-outline-danger" href="index.php?controller=Auth&action=logout">Cerrar sesión</a>
         <?php endif; ?>
       </div>
     </div>
