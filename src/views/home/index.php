@@ -3,7 +3,7 @@
 <style>
   /* Aplica fondo a todo el body */
   body {
-    background: url('../imagenes/globo.jpg') no-repeat center center fixed;
+    background: url('../imagenes/furgoneta.jpg') no-repeat center center fixed;
     background-size: cover;
   }
 
@@ -19,8 +19,10 @@
   <div class="fondo-blanco">
     <h1>Bienvenido a Isla-Transfers</h1>
     <p class="lead">
-      Esta es la página de inicio de tu aplicación.
-      Aquí puedes explicar el servicio de traslados, ventajas y cómo usar la web.
+ Grupo OPTIPHP
+<br>
+<br>
+ Sentiros libres de poner lo que querais aqui!!
     </p>
   </div>
 </div>
