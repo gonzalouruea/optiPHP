@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: mi_proyecto_web
+    container_name: arreglo_proyecto_web
     ports:
       - "8080:80"
     volumes:
@@ -19,7 +19,7 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: mi_proyecto_mysql
+    container_name: arreglo_proyecto_mysql
     ports:
       - "3307:3306"
     environment:
@@ -39,7 +39,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5.2.1
-    container_name: mi_proyecto_phpmyadmin
+    container_name: arreglo_proyecto_phpmyadmin
     depends_on:
       - db
     ports:

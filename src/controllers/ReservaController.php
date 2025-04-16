@@ -174,35 +174,7 @@ class ReservaController
     }
   }
 
-  public function delete()
-  {
-    Helpers::verificarSesionOExit();
 
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-      header("Location: index.php?controller=Reserva&action=index");
-      exit;
-    }
-
-    $id = $_GET['id'] ?? null;
-    $reserva = Reserva::findById($id);
-    if (!$reserva) {
-      header("Location: index.php?controller=Reserva&action=index&error=NoEncontrada");
-      exit;
-    }
-
-    // Permisos
-    if ($reserva['email_cliente'] !== $_SESSION['email'] && empty($_SESSION['admin'])) {
-      header("Location: index.php?controller=Reserva&action=index&error=SinPermiso");
-      exit;
-    }
-
-    $ok = Reserva::deleteById($id);
-    if ($ok === true) {
-      header("Location: index.php?controller=Reserva&action=index&success=ReservaEliminada");
-    } else {
-      header("Location: index.php?controller=Reserva&action=index&error=$ok");
-    }
-  }
 
   public function detalle()
   {
