@@ -35,6 +35,40 @@ class ReservaController
     require __DIR__ . '/../views/reservas/create.php';
   }
 
+  public function delete()
+  {
+    Helpers::verificarSesionOExit();
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+      header("Location: index.php?controller=Reserva&action=index&error=MetodoNoPermitido");
+      exit;
+    }
+
+    $id = $_POST['id_reserva'] ?? null;
+
+    if (!$id) {
+      header("Location: index.php?controller=Reserva&action=index&error=NoID");
+      exit;
+    }
+
+    // Verifica que el usuario tenga permiso (solo admins deberían poder borrar reservas)
+    if (empty($_SESSION['admin'])) {
+      header("Location: index.php?controller=Reserva&action=index&error=SinPermiso");
+      exit;
+    }
+
+    $result = Reserva::deleteById($id);
+
+    if ($result === true) {
+      header("Location: index.php?controller=Reserva&action=index&success=ReservaEliminada");
+      exit;
+    } else {
+      header("Location: index.php?controller=Reserva&action=index&error=" . urlencode($result));
+      exit;
+    }
+  }
+
+
   public function store()
   {
     Helpers::verificarSesionOExit();
