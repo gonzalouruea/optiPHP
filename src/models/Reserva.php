@@ -46,6 +46,8 @@ class Reserva
     return $stmt->fetch(PDO::FETCH_ASSOC);
   }
 
+
+
   // Lógica para insertar
   public static function crearReserva($data, $rolUsuario)
   {
@@ -88,6 +90,14 @@ class Reserva
     if (empty($data['hora_vuelo_salida'])) {
       $data['hora_vuelo_salida'] = null;
     }
+
+    if (empty($data['fecha_entrada'])) {
+      $data['fecha_entrada'] = null;
+    }
+    if (empty($data['hora_entrada'])) {
+      $data['hora_entrada'] = null;
+    }
+
 
     $stmt = $db->prepare($sql);
     $stmt->execute([
