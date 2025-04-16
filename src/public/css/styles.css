@@ -1,0 +1,35 @@
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap');
+
+  /* Aplica fondo a todo el body */
+  body {
+    background: url('../imagenes/airplane-7429725_1920.jpg') no-repeat center center fixed;
+    background-size: cover;
+
+    font-family: "Winky Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+  
+  
+    
+  }
+
+  /* Si el texto no se lee bien, puedes usar un color de texto claro */
+  .fondo-blanco {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 5px;
+  }
+
+ h1{  font-family: "Winky Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 60px
+  
+  
+  
+  ;}
