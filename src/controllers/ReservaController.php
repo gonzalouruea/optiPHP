@@ -234,12 +234,16 @@ class ReservaController
     Helpers::verificarSesionOExit();
 
     // Podrías recibir ?vista=dia|semana|mes
-    $vista = $_GET['vista'] ?? 'mes';
+    $vista = $_GET['vista'] ?? 'dayGridMonth';
     $fecha = $_GET['fecha'] ?? date('Y-m-d');
 
-    // El modelo maneja la lógica de filtrar
-    $reservas = Reserva::findInRange($vista, $fecha);
+    if (!empty($_SESSION['admin'])) {
+      $reservas = Reserva::findAll();  // o filtra según fecha
+    } else {
+      $reservas = Reserva::findByEmail($_SESSION['email']);
+    }
 
+    // Cargar la vista
     require __DIR__ . '/../views/reservas/calendario.php';
   }
 }
