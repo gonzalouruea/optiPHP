@@ -35,6 +35,40 @@ class ReservaController
     require __DIR__ . '/../views/reservas/create.php';
   }
 
+  public function delete()
+  {
+    Helpers::verificarSesionOExit();
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+      header("Location: index.php?controller=Reserva&action=index&error=MetodoNoPermitido");
+      exit;
+    }
+
+    $id = $_POST['id_reserva'] ?? null;
+
+    if (!$id) {
+      header("Location: index.php?controller=Reserva&action=index&error=NoID");
+      exit;
+    }
+
+    // Verifica que el usuario tenga permiso (solo admins deberían poder borrar reservas)
+    if (empty($_SESSION['admin'])) {
+      header("Location: index.php?controller=Reserva&action=index&error=SinPermiso");
+      exit;
+    }
+
+    $result = Reserva::deleteById($id);
+
+    if ($result === true) {
+      header("Location: index.php?controller=Reserva&action=index&success=ReservaEliminada");
+      exit;
+    } else {
+      header("Location: index.php?controller=Reserva&action=index&error=" . urlencode($result));
+      exit;
+    }
+  }
+
+
   public function store()
   {
     Helpers::verificarSesionOExit();
@@ -174,35 +208,7 @@ class ReservaController
     }
   }
 
-  public function delete()
-  {
-    Helpers::verificarSesionOExit();
 
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-      header("Location: index.php?controller=Reserva&action=index");
-      exit;
-    }
-
-    $id = $_GET['id'] ?? null;
-    $reserva = Reserva::findById($id);
-    if (!$reserva) {
-      header("Location: index.php?controller=Reserva&action=index&error=NoEncontrada");
-      exit;
-    }
-
-    // Permisos
-    if ($reserva['email_cliente'] !== $_SESSION['email'] && empty($_SESSION['admin'])) {
-      header("Location: index.php?controller=Reserva&action=index&error=SinPermiso");
-      exit;
-    }
-
-    $ok = Reserva::deleteById($id);
-    if ($ok === true) {
-      header("Location: index.php?controller=Reserva&action=index&success=ReservaEliminada");
-    } else {
-      header("Location: index.php?controller=Reserva&action=index&error=$ok");
-    }
-  }
 
   public function detalle()
   {
@@ -228,12 +234,16 @@ class ReservaController
     Helpers::verificarSesionOExit();
 
     // Podrías recibir ?vista=dia|semana|mes
-    $vista = $_GET['vista'] ?? 'mes';
+    $vista = $_GET['vista'] ?? 'dayGridMonth';
     $fecha = $_GET['fecha'] ?? date('Y-m-d');
 
-    // El modelo maneja la lógica de filtrar
-    $reservas = Reserva::findInRange($vista, $fecha);
+    if (!empty($_SESSION['admin'])) {
+      $reservas = Reserva::findAll();  // o filtra según fecha
+    } else {
+      $reservas = Reserva::findByEmail($_SESSION['email']);
+    }
 
+    // Cargar la vista
     require __DIR__ . '/../views/reservas/calendario.php';
   }
 }

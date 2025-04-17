@@ -17,15 +17,17 @@ class Usuario
   public static function create($data)
   {
     $db = Database::getConnection();
-    // Rol por defecto "usuario"
     $sql = "INSERT INTO transfer_viajeros
                 (nombre, apellido1, apellido2, direccion, codigoPostal,
                  ciudad, pais, email, password, rol)
-                VALUES
+            VALUES
                 (:nombre, :apellido1, :apellido2, :direccion, :cp,
-                 :ciudad, :pais, :email, :password, 'usuario')";
+                 :ciudad, :pais, :email, :password, :rol)";
 
     $stmt = $db->prepare($sql);
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':rol', $data['rol'] ?? 'usuario');
     $stmt->bindValue(':nombre', $data['nombre']);
     $stmt->bindValue(':apellido1', $data['apellido1']);
     $stmt->bindValue(':apellido2', $data['apellido2']);

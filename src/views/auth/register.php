@@ -4,14 +4,21 @@
   <h2>Registro de Usuario</h2>
 
   <?php if (!empty($error)): ?>
-    <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
   <?php elseif (!empty($exito)): ?>
-    <div class="alert alert-success"><?= htmlspecialchars($exito) ?></div>
+        <div class="alert alert-success"><?= htmlspecialchars($exito) ?></div>
   <?php endif; ?>
 
   <form action="index.php?controller=Auth&action=register" method="POST" class="mt-3">
     <div class="row g-3">
       <div class="col-md-4">
+      <div class="mb-3">
+  <label for="rol" class="form-label">Tipo de Cuenta</label>
+  <select name="rol" id="rol" class="form-select">
+    <option value="usuario">Particular</option>
+    <option value="corporativo">Empresa</option>
+  </select>
+</div>
         <label class="form-label">Nombre</label>
         <input type="text" name="nombre" class="form-control" required>
       </div>

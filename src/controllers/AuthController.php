@@ -25,7 +25,9 @@ class AuthController
     if ($usuario && password_verify($password, $usuario['password'])) {
       $_SESSION['email'] = $usuario['email'];
       $_SESSION['id_viajero'] = $usuario['id_viajero'];
+      $_SESSION['rol'] = $usuario['rol'];
       $_SESSION['admin'] = ($usuario['rol'] == 'admin') ? 1 : 0;
+
 
       header("Location: index.php");
       exit;
@@ -50,6 +52,7 @@ class AuthController
   public function register()
   {
     $data = [
+      'rol' => $_POST['rol'] ?? 'usuario', // <-- recogemos el rol
       'nombre' => $_POST['nombre'] ?? '',
       'apellido1' => $_POST['apellido1'] ?? '',
       'apellido2' => $_POST['apellido2'] ?? '',
