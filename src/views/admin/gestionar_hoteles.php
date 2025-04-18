@@ -1,6 +1,6 @@
 <?php include __DIR__ . '/../layout/header.php'; ?>
 
-div class="container my-4">
+<div class="container my-4">
   <h2>Gestionar Hoteles</h2>
 
   <?php if (!empty($error)): ?>
