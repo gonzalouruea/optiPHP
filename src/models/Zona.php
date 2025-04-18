@@ -10,7 +10,7 @@ class Zona
   {
     $db = Database::getConnection();
     $sql = "SELECT z.*,
-                (SELECT COUNT(*) FROM tranfer_hotel h WHERE h.id_zona = z.id_zona) as num_hoteles
+                (SELECT COUNT(*) FROM transfer_hotel h WHERE h.id_zona = z.id_zona) as num_hoteles
                 FROM transfer_zona z
                 ORDER BY z.id_zona";
     return $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
