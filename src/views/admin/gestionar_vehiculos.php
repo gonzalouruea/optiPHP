@@ -17,8 +17,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Descripción del Vehiculo</th>
+          <th>Descripci&oacute;n del Vehiculo</th>
           <th>Email del Conductor</th>
           <th>Acciones</th>
         </tr>
@@ -26,7 +25,6 @@
       <tbody>
         <?php foreach ($vehiculos as $v): ?>
               <tr>
-                <td><?= $v['id_vehiculo'] ?></td>
                 <td><?= htmlspecialchars($v['Descripción']) ?></td>
                 <td><?= htmlspecialchars($v['email_conductor']) ?></td>
                 <td>

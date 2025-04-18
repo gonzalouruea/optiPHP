@@ -17,7 +17,6 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Descripción</th>
           <th>Hoteles</th>
           <th>Acciones</th>
@@ -26,7 +25,6 @@
       <tbody>
         <?php foreach ($zonas as $z): ?>
           <tr>
-            <td><?= $z['id_zona'] ?></td>
             <td><?= htmlspecialchars($z['descripcion']) ?></td>
             <td><?= htmlspecialchars($z['num_hoteles']) ?></td>
             <td>

@@ -17,7 +17,6 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Descripción</th>
           <th># Reservas</th>
           <th>Acciones</th>
@@ -26,7 +25,6 @@
       <tbody>
         <?php foreach ($tipos as $t): ?>
           <tr>
-            <td><?= $t['id_tipo_reserva'] ?></td>
             <td><?= htmlspecialchars($t['Descripción']) ?></td>
             <td><?= htmlspecialchars($t['num_reservas']) ?></td>
             <td>
