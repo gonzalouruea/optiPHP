@@ -8,7 +8,7 @@
  Grupo OPTIPHP
 <br>
 <br>
- Sentiros libres de poner lo que querais aqui!!
+<h2>Viaja tranquilo, nosotros te movemos a tiempo</h2> 
     </p>
   </div>
 </div>
