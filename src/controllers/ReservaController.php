@@ -91,6 +91,7 @@ class ReservaController
       'fecha_vuelo_salida' => $_POST['fecha_vuelo_salida'] ?? null,
       'hora_vuelo_salida' => $_POST['hora_vuelo_salida'] ?? null,
       'hora_recogida' => $_POST['hora_recogida'] ?? null,
+      'origen_vuelo_entrada' => $_POST['origen_vuelo_entrada'] ?? null,
     ];
 
     // Si admin y eligió usuario en form
@@ -125,14 +126,14 @@ class ReservaController
       exit;
     }
 
-    $reserva = Reserva::findById($id);
-    if (!$reserva) {
+    $fReserva = Reserva::findById($id);
+    if (!$fReserva) {
       header("Location: index.php?controller=Reserva&action=index&error=NoEncontrada");
       exit;
     }
 
     // Verificar permiso (admin o dueño de la reserva)
-    if ($reserva['email_cliente'] !== $_SESSION['email'] && empty($_SESSION['admin'])) {
+    if ($fReserva['email_cliente'] !== $_SESSION['email'] && empty($_SESSION['admin'])) {
       header("Location: index.php?controller=Reserva&action=index&error=SinPermiso");
       exit;
     }
@@ -140,13 +141,13 @@ class ReservaController
     // 48h check si no es admin
     if (empty($_SESSION['admin'])) {
       // Tomamos la fecha/hora que aplique (fecha_entrada o fecha_vuelo_salida)
-      $fReserva = null;
-      if (!empty($reserva['fecha_entrada'])) {
-        $fReserva = strtotime($reserva['fecha_entrada'] . ' ' . $reserva['hora_entrada']);
+      $reserva = null;
+      if (!empty($fReserva['fecha_entrada'])) {
+        $reserva = strtotime($fReserva['fecha_entrada'] . ' ' . $reserva['hora_entrada']);
       } elseif (!empty($reserva['fecha_vuelo_salida'])) {
-        $fReserva = strtotime($reserva['fecha_vuelo_salida'] . ' ' . $reserva['hora_vuelo_salida']);
+        $reserva = strtotime($reserva['fecha_vuelo_salida'] . ' ' . $reserva['hora_vuelo_salida']);
       }
-      if ($fReserva && ($fReserva - time() < 48 * 3600)) {
+      if ($reserva && ($reserva - time() < 48 * 3600)) {
         header("Location: index.php?controller=Reserva&action=index&error=NoSePuedeModificarMenos48h");
         exit;
       }

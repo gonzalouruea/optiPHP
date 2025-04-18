@@ -19,15 +19,15 @@ class Hotel
   public static function create($data)
   {
     // Validar
-    if (empty($data['id_zona']) || empty($data['comision']) || empty($data['usuario']) || empty($data['password'])) {
+    if (empty($data['id_zona']) || empty($data['descripcion']) || empty($data['comision']) || empty($data['usuario']) || empty($data['password'])) {
       return "Faltan datos para crear hotel";
     }
     $db = Database::getConnection();
-    $stmt = $db->prepare("INSERT INTO transfer_hotel (id_zona, Comision, usuario, password)
-                              VALUES (?, ?, ?, ?)");
+    $stmt = $db->prepare("INSERT INTO transfer_hotel (descripcion, id_zona, Comision, usuario, password)
+                              VALUES (?, ?, ?, ?, ?)");
     try {
       $passwordHash = password_hash($data['password'], PASSWORD_DEFAULT);
-      $stmt->execute([$data['id_zona'], $data['comision'], $data['usuario'], $passwordHash]);
+      $stmt->execute([$data['descripcion'], $data['id_zona'], $data['comision'], $data['usuario'], $passwordHash]);
       return true;
     } catch (\PDOException $e) {
       return $e->getMessage();
@@ -36,15 +36,16 @@ class Hotel
 
   public static function update($data)
   {
-    if (empty($data['id_hotel']) || empty($data['id_zona']) || empty($data['comision']) || empty($data['usuario'])) {
+    if (empty($data['id_hotel']) || empty($data['descripcion']) || empty($data['id_zona']) || empty($data['comision']) || empty($data['usuario'])) {
       return "Faltan datos para actualizar hotel";
     }
     $db = Database::getConnection();
     $sql = "UPDATE transfer_hotel
                 SET id_zona = ?,
+                    descripcion = ?,
                     Comision = ?,
                     usuario = ?";
-    $params = [$data['id_zona'], $data['comision'], $data['usuario']];
+    $params = [$data['id_zona'], $data['descripcion'], $data['comision'], $data['usuario']];
     if (!empty($data['password'])) {
       $sql .= ", password = ?";
       $params[] = password_hash($data['password'], PASSWORD_DEFAULT);

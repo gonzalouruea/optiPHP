@@ -17,8 +17,8 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Zona</th>
+        <th>Descripci&oacute;n</th>
+        <th>Zona</th>
           <th>Usuario</th>
           <th>Comisión</th>
           <th>Acciones</th>
@@ -27,8 +27,8 @@
       <tbody>
         <?php foreach ($hoteles as $hotel): ?>
                     <tr>
-                      <td><?= $hotel['id_hotel'] ?></td>
-                      <td><?= htmlspecialchars($hotel['zona_nombre'] ?? 'Sin zona') ?></td>
+                    <td><?= htmlspecialchars($hotel['descripcion'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($hotel['zona_nombre'] ?? 'Sin zona') ?></td>
                       <td><?= htmlspecialchars($hotel['Usuario']) ?></td>
                       <td><?= htmlspecialchars($hotel['Comision']) ?>%</td>
                       <td>
@@ -59,6 +59,10 @@
       <div class="modal-body">
         <form action="index.php?controller=Admin&action=gestionarHoteles" method="POST">
           <input type="hidden" name="action" value="create">
+          <div class="mb-3">
+            <label>Descripci&oacute;n</label>
+            <input type="text" name="descripcion" class="form-control" required>
+          </div>
           <div class="mb-3">
             <label>Zona</label>
             <select class="form-select" name="id_zona" required>
@@ -101,6 +105,10 @@
           <input type="hidden" name="id_hotel" id="edit_id_hotel">
 
           <div class="mb-3">
+            <label>Descripci&oacute;n</label>
+            <input type="text" name="descripcion" id="edit_descripcion" class="form-control" required>
+          </div>
+          <div class="mb-3">
             <label>Zona</label>
             <select class="form-select" name="id_zona" id="edit_id_zona" required>
               <option value="">Selecciona zona</option>
@@ -110,7 +118,7 @@
             </select>
           </div>
           <div class="mb-3">
-            <label>Usuario (nombre del hotel)</label>
+            <label>Usuario</label>
             <input type="text" name="usuario" id="edit_usuario" class="form-control" required>
           </div>
           <div class="mb-3">
@@ -131,8 +139,9 @@
 <script>
 function editarHotel(hotel) {
   document.getElementById('edit_id_hotel').value = hotel.id_hotel;
+  document.getElementById('edit_descripcion').value = hotel.descripcion;
   document.getElementById('edit_id_zona').value = hotel.id_zona;
-  document.getElementById('edit_usuario').value = hotel.usuario;
+  document.getElementById('edit_usuario').value = hotel.Usuario;
   document.getElementById('edit_comision').value = hotel.Comision;
   document.getElementById('edit_password').value = '';
   new bootstrap.Modal(document.getElementById('editarHotelModal')).show();

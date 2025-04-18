@@ -11,7 +11,7 @@ class Reserva
     $db = Database::getConnection();
     $sql = "SELECT r.*,
                        v.Descripción as vehiculo_nombre,
-                       h.usuario as hotel_nombre,
+                       h.descripcion as hotel_nombre,
                        tr.Descripción as tipo_reserva_nombre
                 FROM transfer_reservas r
                 LEFT JOIN transfer_vehiculo v ON r.id_vehiculo = v.id_vehiculo
@@ -26,7 +26,7 @@ class Reserva
     $db = Database::getConnection();
     $stmt = $db->prepare("SELECT r.*,
                        v.Descripción as vehiculo_nombre,
-                       h.usuario as hotel_nombre,
+                       h.descripcion as hotel_nombre,
                        tr.Descripción as tipo_reserva_nombre
                 FROM transfer_reservas r
                 LEFT JOIN transfer_vehiculo v ON r.id_vehiculo = v.id_vehiculo
@@ -76,12 +76,12 @@ class Reserva
                 (localizador, id_tipo_reserva, email_cliente, fecha_reserva, fecha_modificacion,
                  id_hotel, fecha_entrada, hora_entrada, numero_vuelo_entrada,
                  fecha_vuelo_salida, hora_vuelo_salida, hora_recogida,
-                 num_viajeros, id_vehiculo, creado_por_admin)
+                 num_viajeros, id_vehiculo, creado_por_admin, origen_vuelo_entrada)
                 VALUES
                 (:loc, :tipo, :email, NOW(), NOW(),
                  :hotel, :fentrada, :hentrada, :vuelo_entrada,
                  :fsalida, :hsalida, :hrecogida,
-                 :viajeros, :vehiculo, :admin)";
+                 :viajeros, :vehiculo, :admin, :origen_vuelo_entrada)";
 
     // Si el usuario no rellena fecha_vuelo_salida, le asignamos null
     if (empty($data['fecha_vuelo_salida'])) {
@@ -96,6 +96,9 @@ class Reserva
     }
     if (empty($data['hora_entrada'])) {
       $data['hora_entrada'] = null;
+    }
+    if (empty($data['origen_vuelo_entrada'])) {
+      $data['origen_vuelo_entrada'] = null;
     }
 
 
@@ -114,6 +117,7 @@ class Reserva
       ':viajeros' => $data['num_viajeros'],
       ':vehiculo' => $data['id_vehiculo'],
       ':admin' => ($rolUsuario === 'admin' ? 1 : 0),
+      ':origen_vuelo_entrada' => $data['origen_vuelo_entrada']
     ]);
 
     // (Opcional) Enviar email con mail(...)
@@ -228,7 +232,7 @@ class Reserva
     }
 
     $sql = "SELECT r.*,
-                       h.usuario as hotel_nombre,
+                       h.descripcion as hotel_nombre,
                        v.Descripción as vehiculo_descripcion,
                        tr.Descripción as tipo_reserva_descripcion
                 FROM transfer_reservas r

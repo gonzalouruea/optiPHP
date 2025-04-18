@@ -51,7 +51,7 @@
       <select name="id_hotel" class="form-select" required>
         <?php foreach ($hoteles as $h): ?>
               <option value="<?= $h['id_hotel'] ?>">
-                <?= htmlspecialchars($h['Usuario'] ?? "Hotel #{$h['id_hotel']}") ?>
+                <?= htmlspecialchars($h['descripcion'] ?? "Hotel #{$h['id_hotel']}") ?>
               </option>
         <?php endforeach; ?>
       </select>
