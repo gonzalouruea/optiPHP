@@ -42,6 +42,13 @@
           <dd class="col-sm-9"><?= htmlspecialchars($reserva['num_viajeros']) ?></dd>
         </dl>
         <a href="index.php?controller=Reserva&action=index" class="btn btn-primary">Volver</a>
+        <?php if (!empty($_SESSION['admin'])): ?>
+          <a href="index.php?controller=Reserva&action=edit&id=<?= $reserva['id_reserva'] ?>" class="btn btn-secondary">Editar</a>
+          <form action="index.php?controller=Reserva&action=delete" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro de cancelar?')">
+            <input type="hidden" name="id_reserva" value="<?= $reserva['id_reserva'] ?>">
+            <button class="btn btn-danger">Cancelar</button>
+          </form>
+        <?php endif; ?>
       </div>
     </div>
   <?php endif; ?>
