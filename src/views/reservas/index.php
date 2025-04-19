@@ -26,6 +26,9 @@
               <?php endif; ?>
             </div>
             <div class="card-body">
+              <?php if (!empty($_SESSION['admin'])): ?>
+                <p><strong>Usuario:</strong> <?= htmlspecialchars($reserva['email_cliente']) ?></p>
+              <?php endif; ?>
               <p><strong>Tipo:</strong> <?= htmlspecialchars($reserva['tipo_reserva_nombre'] ?? 'Desconocido') ?></p>
               <p><strong>Hotel:</strong> <?= htmlspecialchars($reserva['hotel_nombre'] ?? 'N/A') ?></p>
               <p><strong>Vehículo:</strong> <?= htmlspecialchars($reserva['vehiculo_nombre'] ?? 'N/A') ?></p>
