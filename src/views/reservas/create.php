@@ -10,7 +10,8 @@
   <form action="index.php?controller=Reserva&action=store" method="POST">
     <?php if (!empty($_SESSION['admin']) && !empty($usuarios)): ?>
           <!-- Seleccionar usuario -->
-          <div class="mb-3">
+           <div class="row mb-3">
+          <div class="col-9 mb-3">
             <label class="form-label">Usuario</label>
             <select class="form-select" name="id_viajero">
               <option value="">Seleccionar usuario...</option>
@@ -18,6 +19,10 @@
                     <option value="<?= $u['id_viajero'] ?>"><?= htmlspecialchars($u['email']) ?></option>
               <?php endforeach; ?>
             </select>
+          </div>
+            <div class="col-3 mb-3 d-flex align-items-end">
+            <a href="index.php?controller=Auth&action=showRegister" class="btn btn-primary w-100">Registrar Nuevo Usuario</a>
+            </div>
           </div>
     <?php endif; ?>
 
