@@ -61,6 +61,9 @@
                           <li><a class="dropdown-item" href="index.php?controller=Admin&action=gestionarTipos">Tipos de Reserva</a></li>
                         </ul>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="index.php?controller=Auth&action=showCambiarDatos">Perfil</a>
+                      </li>
 
                 <?php elseif ($rol === 'corporativo'): ?>
                       <!-- Menú Corporativo (usa menús parecidos a usuario, u otro condicional) -->
