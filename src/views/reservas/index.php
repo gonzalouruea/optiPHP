@@ -33,6 +33,7 @@
               <p><strong>Hotel:</strong> <?= htmlspecialchars($reserva['hotel_nombre'] ?? 'N/A') ?></p>
               <p><strong>Vehículo:</strong> <?= htmlspecialchars($reserva['vehiculo_nombre'] ?? 'N/A') ?></p>
               <p><strong>Pasajeros:</strong> <?= htmlspecialchars($reserva['num_viajeros']) ?></p>
+              <p><strong>Precio (Fijo):</strong> 30 €</p>
               <?php if (!empty($reserva['fecha_entrada'])): ?>
                 <p><strong>Llegada:</strong> <?= htmlspecialchars($reserva['fecha_entrada']) ?> a las
                   <?= htmlspecialchars($reserva['hora_entrada']) ?>
