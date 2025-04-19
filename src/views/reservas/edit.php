@@ -108,6 +108,11 @@
     </div>
 
     <button class="btn btn-primary">Confirmar Reserva</button>
+    <form action="index.php?controller=Reserva&action=delete" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro de cancelar?')">
+      <input type="hidden" name="id_reserva" value="<?= $reserva['id_reserva'] ?>">
+      <button class="btn btn-danger">Cancelar</button>
+    </form>
+    
   </form>
 </div>
 

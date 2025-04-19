@@ -143,9 +143,9 @@ class ReservaController
       // Tomamos la fecha/hora que aplique (fecha_entrada o fecha_vuelo_salida)
       $reserva = null;
       if (!empty($fReserva['fecha_entrada'])) {
-        $reserva = strtotime($fReserva['fecha_entrada'] . ' ' . $reserva['hora_entrada']);
-      } elseif (!empty($reserva['fecha_vuelo_salida'])) {
-        $reserva = strtotime($reserva['fecha_vuelo_salida'] . ' ' . $reserva['hora_vuelo_salida']);
+        $reserva = strtotime($fReserva['fecha_entrada'] . ' ' . $fReserva['hora_entrada']);
+      } elseif (!empty($fReserva['fecha_vuelo_salida'])) {
+        $reserva = strtotime($fReserva['fecha_vuelo_salida'] . ' ' . $fReserva['hora_vuelo_salida']);
       }
       if ($reserva && ($reserva - time() < 48 * 3600)) {
         header("Location: index.php?controller=Reserva&action=index&error=NoSePuedeModificarMenos48h");
