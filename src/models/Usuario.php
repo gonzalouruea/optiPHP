@@ -9,8 +9,9 @@ class Usuario
   public static function findByEmail($email)
   {
     $db = Database::getConnection();
-    $stmt = $db->prepare("SELECT * FROM transfer_viajeros WHERE email = ?");
-    $stmt->execute([$email]);
+    $stmt = $db->prepare("SELECT * FROM transfer_viajeros WHERE email = :email");
+    $stmt->bindValue(':email', $email);
+    $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
   }
 
@@ -26,7 +27,6 @@ class Usuario
 
     $stmt = $db->prepare($sql);
 
-    $stmt = $db->prepare($sql);
     $stmt->bindValue(':rol', $data['rol'] ?? 'usuario');
     $stmt->bindValue(':nombre', $data['nombre']);
     $stmt->bindValue(':apellido1', $data['apellido1']);
@@ -72,6 +72,8 @@ class Usuario
     }
 
     $nombre = $fields['nombre'] ?: $usuario['nombre'];
+    $apellido1 = $fields['apellido1'] ?: $usuario['apellido1'];
+    $apellido2 = $fields['apellido2'] ?: $usuario['apellido2'];
     $email = $fields['email'] ?: $oldEmail;
 
     if (!empty($fields['password'])) {
@@ -82,12 +84,18 @@ class Usuario
 
     // Actualizar
     $sql = "UPDATE transfer_viajeros
-                SET nombre = :nombre, email = :nuevoEmail, password = :pass
+                SET nombre = :nombre, 
+                email = :nuevoEmail, 
+                password = :pass,
+                apellido1 = :apellido1,
+                apellido2 = :apellido2
                 WHERE email = :oldEmail";
 
     $stmt = $db->prepare($sql);
     $stmt->execute([
       ':nombre' => $nombre,
+      ':apellido1' => $apellido1,
+      ':apellido2' => $apellido2,
       ':nuevoEmail' => $email,
       ':pass' => $password,
       ':oldEmail' => $oldEmail

@@ -91,6 +91,8 @@ class AuthController
       header("Location: index.php?controller=Auth&action=showLogin");
       exit;
     }
+    $user = Usuario::findByEmail($_SESSION['email']);
+
     require __DIR__ . '/../views/auth/cambiar_datos.php';
   }
 
@@ -105,11 +107,15 @@ class AuthController
     $oldEmail = $_SESSION['email'];
 
     $nombre = $_POST['nombre'] ?? '';
+    $apellido1 = $_POST['apellido1'] ?? '';
+    $apellido2 = $_POST['apellido2'] ?? '';
     $nuevoEmail = $_POST['email'] ?? $oldEmail;
     $password = $_POST['password'] ?? '';
 
     $ok = Usuario::updateAllData($oldEmail, [
       'nombre' => $nombre,
+      'apellido1' => $apellido1,
+      'apellido2' => $apellido2,
       'email' => $nuevoEmail,
       'password' => $password
     ]);
@@ -121,6 +127,8 @@ class AuthController
       $error = $ok;
     }
 
+    $user = Usuario::findByEmail($_SESSION['email']);
+    
     require __DIR__ . '/../views/auth/cambiar_datos.php';
   }
 }
