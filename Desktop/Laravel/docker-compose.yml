@@ -1,0 +1,61 @@
+services:
+  # Servicio de PHP con Apache (usando el Dockerfile)
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: producto3_php_apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./apache/default.conf:/etc/apache2/sites-available/000-default.conf
+    networks:
+      - producto3_network
+
+  # Servicio de MySQL
+  db:
+    image: mysql:8.0
+    container_name: producto3_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: viajes
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin1234
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - producto3_network
+
+  # Servicio de phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: producto3_phpmyadmin
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8090:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: admin
+      PMA_PASSWORD: admin1234
+    networks:
+      - producto3_network
+
+  # Servicio de Composer
+  composer:
+    image: composer:latest
+    container_name: producto3_composer
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - producto3_network
+
+# Red personalizada para los contenedores
+networks:
+  producto3_network:
+    driver: bridge
+

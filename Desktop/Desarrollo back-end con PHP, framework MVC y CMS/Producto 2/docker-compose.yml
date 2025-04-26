@@ -1,6 +1,6 @@
+version: '3.8'
+
 services:
-  # Servicio de PHP con Apache
-  web:
     build:
       context: .
       dockerfile: Dockerfile
@@ -17,7 +17,6 @@ services:
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html
 
-  # Servicio de MySQL
   db:
     image: mysql:8.0
     container_name: optiphp_mysql
@@ -32,14 +31,11 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - backend
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # Servicio de phpMyAdmin
-  phpmyadmin:
     image: phpmyadmin/phpmyadmin:5.2.1
     container_name: optiphp_phpmyadmin
     depends_on:
