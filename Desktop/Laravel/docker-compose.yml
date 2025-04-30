@@ -1,5 +1,6 @@
+version: '3.8'
+
 services:
-  # Servicio de PHP con Apache (usando el Dockerfile)
   web:
     build:
       context: .
@@ -13,7 +14,6 @@ services:
     networks:
       - producto3_network
 
-  # Servicio de MySQL
   db:
     image: mysql:8.0
     container_name: producto3_mysql
@@ -28,7 +28,6 @@ services:
     networks:
       - producto3_network
 
-  # Servicio de phpMyAdmin
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: producto3_phpmyadmin
@@ -39,12 +38,11 @@ services:
       - "8090:80"
     environment:
       PMA_HOST: db
-      PMA_USER: admin
-      PMA_PASSWORD: admin1234
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
     networks:
       - producto3_network
 
-  # Servicio de Composer
   composer:
     image: composer:latest
     container_name: producto3_composer
@@ -54,8 +52,6 @@ services:
     networks:
       - producto3_network
 
-# Red personalizada para los contenedores
 networks:
   producto3_network:
     driver: bridge
-
